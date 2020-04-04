@@ -40,24 +40,21 @@ public class MainActivity extends AppCompatActivity {
     {
         int no1,no2,no3;
         no1=(int)(Math.random()*40);
-        no2=(int)(Math.random()*40);
-        no3=(int)(Math.random()*40);
-        while(no1==sol || no2==sol || no3==sol)
+        while (no1==sol)
         {
-            if(no1==sol)
-            {
-                no1=(int)(Math.random()*40);
-            }
-            if(no2==sol)
-            {
-                no2=(int)(Math.random()*40);
-            }
-            if(no3==sol)
-            {
-                no3=(int)(Math.random()*40);
-            }
-
+            no1=(int)(Math.random()*40);
         }
+        no2=(int)(Math.random()*40);
+        while(no2==sol || no2==no1)
+        {
+            no2=(int)(Math.random()*40);
+        }
+        no3=(int)(Math.random()*40);
+        while(no3==sol || no3==no1 || no3==no2)
+        {
+            no3=(int)(Math.random()*40);
+        }
+
         switch (correctTag)
         {
             case 0: op1.setText(Integer.toString(sol));
@@ -84,19 +81,22 @@ public class MainActivity extends AppCompatActivity {
     }
     public void goF(View view)
     {
-        go.setVisibility(View.GONE);
+        go.setVisibility(View.INVISIBLE);
         timer.setVisibility(View.VISIBLE);
         prob.setVisibility(View.VISIBLE);
         score.setVisibility(View.VISIBLE);
         grid.setVisibility(View.VISIBLE);
-        done.setVisibility(View.GONE);
-        play.setVisibility(View.GONE);
+        done.setVisibility(View.INVISIBLE);
+        play.setVisibility(View.INVISIBLE);
         status.setText(null);
         status.setVisibility(View.VISIBLE);
         op1.setClickable(true);
         op2.setClickable(true);
         op3.setClickable(true);
         op4.setClickable(true);
+        totalScore=0;
+        correctScore=0;
+        score.setText("");
         new CountDownTimer(30100,1000){
             @Override
             public void onTick(long millisUntilFinished) {
@@ -105,13 +105,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                status.setVisibility(View.GONE);
+                status.setVisibility(View.INVISIBLE);
                 done.setVisibility(View.VISIBLE);
                 play.setVisibility(View.VISIBLE);
                 op1.setClickable(false);
                 op2.setClickable(false);
                 op3.setClickable(false);
                 op4.setClickable(false);
+
             }
         }.start();
         setAll();
